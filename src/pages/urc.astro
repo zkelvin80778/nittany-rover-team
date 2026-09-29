@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, sources, asset } from '../data/site';
+import { missions } from '../data/content';
+---
+<Layout title="University Rover Challenge" current="urc" description="An introduction to the University Rover Challenge, its 2027 missions, official rules, and Nittany Rover Team’s intended 2027–28 participation.">
+  <section class="urc-banner" aria-labelledby="urc-title">
+    <img class="urc-banner-image" src={asset('images/urc-2017.jpg')} alt="Teams and rovers at the 2017 University Rover Challenge at the Mars Desert Research Station in Utah." width="2048" height="1152" fetchpriority="high" />
+    <div class="page-intro container">
+      <h1 id="urc-title">University Rover<br />Challenge</h1>
+    </div>
+    <p class="banner-credit">URC 2017 · <a href={sources.photo}>The Mars Society</a></p>
+  </section>
+  <section class="container article-section split"><div><h2>What is URC?</h2></div><div><p>Organized by the Mars Society, URC challenges university teams to design and build rovers, then demonstrate their engineering and scientific capabilities in demanding field missions.</p><p>The first competition took place in 2007. Finals are held at the Mars Desert Research Station near Hanksville, Utah. The competition combines design-review milestones with field performance.</p><p class="source-note"><a href={sources.overview}>Read the official competition overview ↗</a></p></div></section>
+  <section class="container article-section"><h2>The Mission Profile</h2><div class="mission-grid">{missions.map(([number,title,text]) => <article><span class="index">{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div><div class="notice"><p><strong>Our target: the {site.target}.</strong> URC 2028 is our intended competition. The mission summaries here describe the published 2027 season for reference; the mission profile outlined above is subject to change.</p></div><p class="source-note"><a href={sources.missions}>Official 2027 mission announcement</a></p></section>
+  <section class="container article-section"><p class="eyebrow">From the competition archive</p><h2>URC 2017</h2><figure class="photo"><img src={asset('images/urc-2017.jpg')} alt="Participants gathered with rovers in the Utah desert at the 2017 University Rover Challenge." width="2048" height="1152" loading="lazy" /><figcaption>2017 URC participants at the Mars Desert Research Station near Hanksville, Utah, June 3, 2017. Historical competition photograph, not Nittany Rover Team. Photo: <a href={sources.photo}>Mars Society / Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · Original image, displayed at reduced size.</figcaption></figure></section>
+  <section class="container section"><h2>Official resources</h2><p>Use the official requirements and Q&A together. The Q&A clarifies and supplements the rules.</p><div class="resource-list"><a href={site.urc}>Official URC website <span aria-hidden="true">↗</span></a><a href={site.rules}>Official rules page <span aria-hidden="true">↗</span></a><a href={site.qa}>Official rules Q&A <span aria-hidden="true">↗</span></a></div></section>
+</Layout>
+
+<style>
+  .urc-banner{position:relative;isolation:isolate;overflow:hidden;background:#171512}
+  .urc-banner-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;z-index:-2}
+  .urc-banner::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,.53) 45%,rgba(0,0,0,.82))}
+  .urc-banner .page-intro{min-height:75svh;padding-bottom:110px}
+  .urc-banner h1,.urc-banner .lead{text-shadow:0 2px 18px #0008}
+  .banner-credit{position:absolute;bottom:20px;right:35px;left:35px;margin:0;text-align:right;font-size:.7rem;color:#ddd}
+  .banner-credit a{color:inherit}
+  @media(max-width:600px){.urc-banner .page-intro{min-height:620px;padding-bottom:100px}.urc-banner-image{object-position:40% center}.banner-credit{left:22px;right:22px;font-size:.65rem}}
+</style>

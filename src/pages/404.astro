@@ -1,0 +1,5 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { href } from '../data/site';
+---
+<Layout title="Page not found" description="This page could not be found. Return to Nittany Rover Team." current="404"><section class="container section"><p class="eyebrow">404 / Off the map</p><h1>Let’s get you<br />back on course</h1><p class="lead">The page you’re looking for isn’t here.</p><div class="actions"><a class="button" href={href()}>Return home ↗</a><a class="button button-outline" href={href('project-sunrise')}>Explore Project SUNRISE</a></div></section></Layout>

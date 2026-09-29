@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { href } from '../data/site';
+---
+<Layout title="Projects" current="projects" description="Explore Nittany Rover Team’s engineering projects, beginning with Project SUNRISE, our proposed modular rover.">
+  <section class="page-intro container">
+    <h1>Projects</h1>
+    <p class="lead">Space robotics starts with the systems we build. Explore the projects bringing our engineering and scientific interests together.</p>
+  </section>
+  <section class="container projects-list" aria-label="Our projects">
+    <article class="split project-entry">
+      <div><h2>Project<br />SUNRISE</h2></div>
+      <div>
+        <p class="eyebrow">Rover</p>
+        <p>Our first rover project explores a modular architecture for different mission profiles and conventional power-generation methods beyond photovoltaic solar and radioisotope thermoelectric generators.</p>
+        <a class="button" href={href('project-sunrise')}>Explore SUNRISE</a>
+      </div>
+    </article>
+  </section>
+</Layout>
+<style>
+  .projects-list { padding-bottom: 110px; }
+  .project-entry { border-top: 1px solid var(--line); padding-top: 65px; align-items: center; }
+  .project-entry h2 { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
+  @media (max-width: 600px) {
+    .projects-list { padding-bottom: 55px; }
+    .project-entry { padding-top: 35px; }
+  }
+</style>

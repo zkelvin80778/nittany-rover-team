@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+import { site, nav, href, asset } from '../data/site';
+const { title, description, current = '' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>{title ? `${title} | ${site.name}` : site.name}</title>
+    <meta name="description" content={description} /><link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title ? `${title} | ${site.name}` : site.name} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header"><div class="nav-wrap">
+      <a class="wordmark" href={href()} aria-label="Nittany Rover Team home"><img class="wordmark-image" src={asset('images/nrt-logo.png')} alt="Nittany Rover Team rover mark" width="1672" height="941" /></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button>
+      <nav id="site-nav" aria-label="Main navigation">{nav.map(([path, label]) => <a class:list={['nav-link', { 'nav-apply': path === 'join' }]} href={href(path)} aria-current={current === path ? 'page' : undefined}>{label}{path === 'join' && <span aria-hidden="true"> ↗</span>}</a>)}</nav>
+    </div></header>
+    <main id="main"><slot /></main>
+    <footer><section class="sponsor-strip"><p class="eyebrow">Sponsors</p></section><div class="footer-simple"><span>© {new Date().getFullYear()} Nittany Rover Team</span><a href={href('join')}>Join Us</a><a href={href('support')}>Support Us</a><a href="https://www.instagram.com/">Instagram</a><a href="https://www.linkedin.com/">LinkedIn</a><a href="https://discover.psu.edu/">Discover PSU</a>{site.contactEmail && <a href={'mailto:' + site.contactEmail}>Contact</a>}</div></footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('#site-nav');
+      button?.addEventListener('click', () => { const open = button.getAttribute('aria-expanded') !== 'true'; button.setAttribute('aria-expanded', String(open)); nav?.classList.toggle('is-open', open); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') { button.setAttribute('aria-expanded', 'false'); nav?.classList.remove('is-open'); button.focus(); } });
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 48);
+      syncHeader();
+      window.addEventListener('scroll', syncHeader, { passive: true });
+    </script>
+  </body>
+</html>
